@@ -73,6 +73,8 @@ export function assertNotQuotaNotice(text, { model, now = Date.now() } = {}) {
   const clock = `${String(utc8.getUTCHours()).padStart(2, "0")}:${String(utc8.getUTCMinutes()).padStart(2, "0")}`
   throw new QwenError(
     `千问账号额度已用尽${model ? `（${model}）` : ""}，预计 ${clock}（UTC+8）恢复；这是上游额度提示而不是模型回答。请等待额度恢复或更换账号`,
-    { status: 429, code: CODES.rateLimited, retryable: true, retryAfter },
+    // 额度耗尽不是瞬时错误：标成不可重试，让插件立即失败并把 429 交给宿主，
+    // 由 magpie 的账号接管切到下一个账号，而不是在本账号里空转重试。
+    { status: 429, code: CODES.rateLimited, retryable: false, retryAfter },
   )
 }

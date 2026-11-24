@@ -47,7 +47,8 @@ test("命中即抛 429 rate_limited，且消息不含上游原文", () => {
     (error) => {
       assert.equal(error.status, 429)
       assert.equal(error.code, "rate_limited")
-      assert.equal(error.retryable, true)
+      // 额度耗尽不是瞬时错误：必须不可重试，让宿主立即切账号。
+      assert.equal(error.retryable, false)
       assert.match(error.message, /额度已用尽/)
       assert.ok(!error.message.includes("{{membership_payment"), "不得回显上游模板原文")
       assert.match(error.message, /预计 \d{2}:\d{2}（UTC\+8）恢复/)
@@ -97,4 +98,14 @@ test("错误对象带 retryAfter，asErrorResponse 会写成 Retry-After 头", a
   const body = await response.json()
   assert.equal(body.error.code, "rate_limited")
   assert.ok(!JSON.stringify(body).includes("{{membership_payment"))
+})
+
+test("额度耗尽必须不可重试：5 小时窗口内重试无意义，应立即交给宿主切换账号", () => {
+  let error
+  try { assertNotQuotaNotice(REAL_5H, { now: Date.UTC(2026, 10, 23, 19, 55, 0) }) } catch (e) { error = e }
+  assert.equal(error.retryable, false)
+  assert.equal(error.status, 429)
+  assert.equal(error.code, "rate_limited")
+  // 仍要带 Retry-After，供宿主/客户端安排下一次可用时刻
+  assert.ok(error.retryAfter > 0)
 })
