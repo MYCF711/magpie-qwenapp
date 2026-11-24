@@ -22,6 +22,40 @@ const QUOTA_PATTERNS = Object.freeze([
 
 const QUOTA_HINT = /额度|用量|会员|恢复/
 
+
+const FIVE_HOURS_SECONDS = 5 * 60 * 60
+const MAX_RESET_SECONDS = 24 * 60 * 60
+
+/**
+ * 从额度提示里推出还要等多少秒，用于 Retry-After。
+ * 千问的 5 小时额度窗口耗尽后通常给一个"将在 HH:MM 恢复"，按其时区（UTC+8）算；
+ * 解析不到具体时刻时退回 5 小时窗口，避免只回一个没有时间信息的 429。
+ */
+export function quotaResetDelaySeconds(text, nowMs = Date.now()) {
+  const value = String(text ?? "")
+  const clock = /(\d{1,2})\s*[:：]\s*(\d{2})/.exec(value)
+  if (clock) {
+    const hour = Number(clock[1])
+    const minute = Number(clock[2])
+    if (hour < 24 && minute < 60) {
+      // 以 UTC+8 墙上时间对齐，不依赖运行机器时区。
+      const utc8Now = new Date(nowMs + 8 * 3600_000)
+      const midnight = Date.UTC(utc8Now.getUTCFullYear(), utc8Now.getUTCMonth(), utc8Now.getUTCDate())
+      const nowOfDay = (utc8Now.getUTCHours() * 3600 + utc8Now.getUTCMinutes() * 60 + utc8Now.getUTCSeconds()) * 1000
+      let diff = midnight + (hour * 3600 + minute * 60) * 1000 - (midnight + nowOfDay)
+      if (diff <= 0) diff += 24 * 3600_000
+      return Math.min(Math.max(Math.round(diff / 1000), 60), MAX_RESET_SECONDS)
+    }
+  }
+  if (/明天/.test(value)) {
+    const utc8Now = new Date(nowMs + 8 * 3600_000)
+    const midnight = Date.UTC(utc8Now.getUTCFullYear(), utc8Now.getUTCMonth(), utc8Now.getUTCDate() + 1)
+    const diff = midnight - (nowMs + 8 * 3600_000)
+    return Math.min(Math.max(Math.round(diff / 1000), 60), MAX_RESET_SECONDS)
+  }
+  return FIVE_HOURS_SECONDS
+}
+
 /** 判断一段助手文本是否是千问的额度/会员提示而不是真实回答。 */
 export function isQuotaNotice(text) {
   const value = String(text ?? "")
@@ -30,11 +64,15 @@ export function isQuotaNotice(text) {
   return QUOTA_PATTERNS.some((pattern) => pattern.test(value))
 }
 
-/** 命中即抛 429；调用方据此在正文产出前中止，避免伪成功。 */
-export function assertNotQuotaNotice(text, { model } = {}) {
+/** 命中即抛 429 + Retry-After；调用方据此在正文产出前中止，避免伪成功。 */
+export function assertNotQuotaNotice(text, { model, now = Date.now() } = {}) {
   if (!isQuotaNotice(text)) return
+  const retryAfter = quotaResetDelaySeconds(text, now)
+  // 5 小时额度窗口：把恢复时刻换算成 HH:MM（UTC+8），错误信息里直接告诉用户等多久。
+  const utc8 = new Date(now + 8 * 3600_000 + retryAfter * 1000)
+  const clock = `${String(utc8.getUTCHours()).padStart(2, "0")}:${String(utc8.getUTCMinutes()).padStart(2, "0")}`
   throw new QwenError(
-    `千问账号额度已用尽${model ? `（${model}）` : ""}，这是上游的额度提示而不是模型回答；请等待额度恢复或更换账号`,
-    { status: 429, code: CODES.rateLimited, retryable: true },
+    `千问账号额度已用尽${model ? `（${model}）` : ""}，预计 ${clock}（UTC+8）恢复；这是上游额度提示而不是模型回答。请等待额度恢复或更换账号`,
+    { status: 429, code: CODES.rateLimited, retryable: true, retryAfter },
   )
 }

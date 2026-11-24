@@ -17,13 +17,16 @@ export const CODES = Object.freeze({
 })
 
 export class QwenError extends Error {
-  constructor(message, { status = 502, code = CODES.upstreamError, signIn, cause, retryable = false } = {}) {
+  constructor(message, { status = 502, code = CODES.upstreamError, signIn, cause, retryable = false, retryAfter } = {}) {
     super(String(message || DEFAULT_MESSAGE), cause ? { cause } : undefined)
     this.name = "QwenError"
     this.status = status
     this.code = code
     if (signIn) this.signIn = signIn
     this.retryable = retryable
+    // 秒数；asErrorResponse 会写成 Retry-After 头，让调用方知道等到什么时候。
+    const seconds = Number(retryAfter)
+    if (Number.isFinite(seconds) && seconds > 0) this.retryAfter = Math.round(seconds)
   }
 }
 

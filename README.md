@@ -84,7 +84,7 @@ curl http://127.0.0.1:3425/v1/models -H "Authorization: Bearer <MAGPIE_API_KEY>"
 - **凭据只在 magpie**：Cookie 与 native 字段只进入 `auth.key`，不写入日志、错误正文或插件缓存。
 - **按账号隔离**：安全缓存、会话映射、token 池一律以完整登录 Cookie 指纹为键。即使两个账号带相同 `uid` 也不会共用缓存。
 - **秘密脱敏**：Cookie、ticket、token、手机号、短信验证码、CSRF、签名在错误和日志中全部脱敏。
-- **额度提示转错误**：千问会把额度/会员卡片当助手正文下发（含未渲染 `{{membership_payment_buttons_card_1}}` 占位符）。插件识别后返回 `429 rate_limited`，不会把提示混进回答。
+- **额度提示转错误**：千问会把额度/会员卡片当助手正文下发（含未渲染 `{{membership_payment_buttons_card_1}}` 占位符）。插件识别后返回 `429 rate_limited`，并带 `Retry-After`（按提示里的恢复时刻以 UTC+8 计算；解析不到则按 5 小时额度窗口），错误正文写明预计恢复时间。
 - **截断不伪装**：上游流在 `finish_reason` / `[DONE]` 之前结束会返回 `504`，不会补一个假的正常结束。
 - **不碰宿主配置**：不修改 magpie 全局 `proxy`、`settings` 或其他插件。
 
