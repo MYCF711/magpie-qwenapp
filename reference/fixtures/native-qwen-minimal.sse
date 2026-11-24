@@ -1,0 +1,9 @@
+data: {"error_code":0,"error_msg":"","data":{"extra_info":{},"messages":[{"mime_type":"signal/post","meta_data":{"operation_types":[]},"status":"complete"}]}}
+
+data: {"error_code":0,"error_msg":"","data":{"extra_info":{},"messages":[{"id":"synthetic-message","role":"assistant","mime_type":"multi_load/iframe","meta_data":{"first_packet":true,"multi_load":[],"ext_info":{}},"content":"你","status":"processing"}]}}
+
+data: {"error_code":0,"error_msg":"","data":{"extra_info":{},"messages":[{"id":"synthetic-message","role":"assistant","mime_type":"multi_load/iframe","meta_data":{"first_packet":false,"multi_load":[],"ext_info":{}},"content":"你好","status":"processing"}]}}
+
+event: complete
+data: {"error_code":0,"error_msg":"","data":{"extra_info":{"chat_odps":{"total_usage":{"prompt_tokens":3,"completion_tokens":2,"total_tokens":5}}},"messages":[{"id":"synthetic-message","role":"assistant","mime_type":"multi_load/iframe","meta_data":{"first_packet":false,"multi_load":[],"ext_info":{}},"content":"你好","status":"complete"}]}}
+

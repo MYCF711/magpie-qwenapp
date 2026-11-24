@@ -1,0 +1,15 @@
+{
+  "success": true,
+  "failed": false,
+  "httpCode": 200,
+  "fixtureMode": "synthetic-assumed-kps-only-not-live-proof",
+  "nativeCredentialSuccessProven": false,
+  "note": "真实 /info 不返回 kpsWg；本夹具只用于验证“假如某来源提供 kpsWg”时的组装逻辑，不代表线上会返回。",
+  "data": {
+    "userId": "1000000000000000001",
+    "userNick": "synthetic-nickname",
+    "telephone": "199****0001",
+    "kps_wg": "synthetic-kps-wg",
+    "service_ticket": "synthetic-service-ticket"
+  }
+}

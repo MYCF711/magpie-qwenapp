@@ -1,0 +1,12 @@
+{
+  "hasError": false,
+  "content": {
+    "data": {
+      "resultCode": 100,
+      "redirect": true,
+      "redirectUrl": "https://www.qianwen.com/desktop-app",
+      "titleMsg": "",
+      "isCheckCodeShowed": false
+    }
+  }
+}

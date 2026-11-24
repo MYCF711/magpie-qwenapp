@@ -1,0 +1,33 @@
+{
+  "source": "reference/native-capture-summary.json, four official captures; shape only, no account/session/trace values",
+  "origin": "https://chat2.qianwen.com",
+  "pathname": "/v1/chat/completions",
+  "queryKeys": [
+    "biz_id",
+    "pr",
+    "fr",
+    "device",
+    "chat_client",
+    "sign_type",
+    "uc_param_str",
+    "bi",
+    "la",
+    "mt",
+    "pf",
+    "tq",
+    "ut",
+    "ve",
+    "pc",
+    "sn",
+    "nn",
+    "dn",
+    "nonce",
+    "timestamp",
+    "sign"
+  ],
+  "nonceLength": 16,
+  "timestampLength": 13,
+  "turnId": "1",
+  "queryIndex": 1,
+  "signWgUppercaseMatched": true
+}

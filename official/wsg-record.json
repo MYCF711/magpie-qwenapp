@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "source": {
+    "file": "5.2.7.307/qianwen.dll",
+    "sha256": "8a3524246a0d9c4143e28c67252a023aca5353e06218a8f2e0d862678fa25641",
+    "ciphertextRva": "0x11f2da50",
+    "keyIvRva": "0x11f2dac0"
+  },
+  "secureNo": 15351,
+  "ciphertextHex": "a8741635997d88bd470151b37c7b08c30f025def078702183ad3fbe1c6244df1",
+  "keyIvHex": "64306661383966313961663466653463",
+  "algorithm": "AES-128-CBC(keyIvHex,keyIvHex), PKCS#7 unpad -> record secret; uint16BE(secureNo) || HMAC-SHA1(record secret, value_to_sign), lowercase hex",
+  "testVector": {
+    "valueToSign": "MAGPIE_WSG_TEST",
+    "sign": "3bf77f8c856cd9381606555b5cd9f49a9e353aa35d06"
+  },
+  "verification": "与正在运行的 quantum.wsg.sign 原生返回值逐字节一致"
+}

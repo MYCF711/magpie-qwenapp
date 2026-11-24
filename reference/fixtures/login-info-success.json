@@ -1,0 +1,13 @@
+{
+  "success": true,
+  "failed": false,
+  "httpCode": 200,
+  "fixtureMode": "synthetic-native-schema-only-not-live-proof",
+  "nativeCredentialSuccessProven": false,
+  "data": {
+    "service_ticket": "synthetic-service-ticket",
+    "kps_wg": "synthetic-kps-wg",
+    "uId": "1000000000000000001",
+    "nickname": "synthetic-nickname"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "hasError": false,
+  "content": {
+    "data": {
+      "smsToken": "synthetic-sms-token",
+      "contextToken": "synthetic-context-token",
+      "titleMsg": "",
+      "isCheckCodeShowed": false
+    }
+  }
+}

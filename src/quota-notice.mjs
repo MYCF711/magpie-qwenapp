@@ -1,0 +1,40 @@
+import { CODES, QwenError } from "./errors.mjs"
+
+/**
+ * 千问把额度/会员提示当成正常助手正文下发（实测含未渲染的 `{{membership_payment_buttons_card_1}}`
+ * 模板占位符）。这类内容不是模型回答，必须转成 429 错误，不能出现在正文字段里。
+ *
+ * 判据刻意保守：只有短文本且命中明确额度/会员话术才算，避免误伤用户追问"额度上限"的正常回答。
+ */
+const NOTICE_MAX_CHARS = 600
+
+const QUOTA_PATTERNS = Object.freeze([
+  // 未渲染的支付/会员卡片模板：模型不会产出这种占位符。
+  /\{\{\s*membership[_a-z0-9]*\}\}/i,
+  // 5 小时窗口的累计用量提示。
+  /累计用量[^。]{0,20}(?:达到|已达|超出)[^。]{0,8}额度上限/,
+  // 当日体验额度提示。
+  /(?:体验)?额度已(?:达|耗尽|用完)[^。]{0,12}(?:上限|明天)/,
+  /今日[^。]{0,6}额度已(?:达|耗尽)[^。]{0,12}上限/,
+  // 会员引导话术（与额度上限同时出现才算）。
+  /(?:订阅|开通)[^。]{0,10}千问\s*Go!?\s*会员[^。]{0,12}(?:额度|恢复)/,
+])
+
+const QUOTA_HINT = /额度|用量|会员|恢复/
+
+/** 判断一段助手文本是否是千问的额度/会员提示而不是真实回答。 */
+export function isQuotaNotice(text) {
+  const value = String(text ?? "")
+  if (!value || value.length > NOTICE_MAX_CHARS) return false
+  if (!QUOTA_HINT.test(value)) return false
+  return QUOTA_PATTERNS.some((pattern) => pattern.test(value))
+}
+
+/** 命中即抛 429；调用方据此在正文产出前中止，避免伪成功。 */
+export function assertNotQuotaNotice(text, { model } = {}) {
+  if (!isQuotaNotice(text)) return
+  throw new QwenError(
+    `千问账号额度已用尽${model ? `（${model}）` : ""}，这是上游的额度提示而不是模型回答；请等待额度恢复或更换账号`,
+    { status: 429, code: CODES.rateLimited, retryable: true },
+  )
+}

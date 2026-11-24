@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "product": "Qianwen",
+  "version": "5.2.7.307",
+  "target": {
+    "path": "E:\\QianwenApp\\qianwen.exe",
+    "sha256": "9fddc2992e9c2a3338a4837f640130692857ba196891082b3c9d7df864641986"
+  },
+  "preservation": {
+    "installTreeModified": false,
+    "runtimeDllsRequiredByPlugin": false,
+    "note": "官方安装目录及其依赖文件保持原样；插件使用已验证的纯 HTTP/Baxia 协议，不加载、复制或修补官方 DLL。以下哈希用于复核所逆向的精确构建。"
+  },
+  "files": [
+    {
+      "path": "qianwen_proxy.exe",
+      "sha256": "26fee1910ab4d936f9a16432ac377ecd43830ec6bb7db92a8337c36233c01d9b"
+    },
+    {
+      "path": "5.2.7.307/qianwen.dll",
+      "sha256": "8a3524246a0d9c4143e28c67252a023aca5353e06218a8f2e0d862678fa25641"
+    },
+    {
+      "path": "5.2.7.307/SecurityGuardSDK64.dll",
+      "sha256": "61eddf80eba3a4526ef6722dffb09e38e8999cfdbb3418ea35340a2878228c66"
+    },
+    {
+      "path": "5.2.7.307/AliSafeProxy.dll",
+      "sha256": "d498dfbe4dcf83cf6c40975e520ce22ed15d3a6cd2322677deee20341cee31ea"
+    },
+    {
+      "path": "5.2.7.307/AliSafePath64.dll",
+      "sha256": "de2d9dc6746b865c7764c050b9d7d737a2fb615cc028774afa7d85586ae3eeac"
+    },
+    {
+      "path": "5.2.7.307/UTDID.dll",
+      "sha256": "f76f31693c5c33960998898ed56bb3853981397d40f42fbebc22fac2a1ac8e4e"
+    },
+    {
+      "path": "5.2.7.307/UTForPC.dll",
+      "sha256": "f647a4cf43828e2a9210377a2d0f24e765651d7ffdaf8704fae4afbb13b59238"
+    },
+    {
+      "path": "5.2.7.307/wtnet.dll",
+      "sha256": "fb975fcb33f26fe686a7923464f82ea6ebf9a3c0f273de8071bec4b0567a49e4"
+    },
+    {
+      "path": "5.2.7.307/Resources/quantum_apps/cowork-agent-host.asar",
+      "sha256": "93ab950aa5cb089aa8bf9c6d0b09d66afb080aa2646fd257bc8a12f7e54013e7"
+    }
+  ]
+}

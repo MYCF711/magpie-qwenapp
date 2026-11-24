@@ -1,0 +1,18 @@
+data: {"id":"chatcmpl-synthetic-tools","object":"ModelRequestProxy","created":1700000000,"model":"qwen4-max","choices":[{"index":0,"delta":{"role":"assistant","content":"","reasoning_content":""},"finish_reason":"null"}],"usage":null}
+
+data: {"id":"chatcmpl-synthetic-tools","object":"ModelRequestProxy","created":1700000000,"model":"qwen4-max","choices":[{"index":0,"delta":{"reasoning_content":"synthetic reasoning","content":""},"finish_reason":"null"}],"usage":null}
+
+data: {"id":"chatcmpl-synthetic-tools","object":"ModelRequestProxy","created":1700000000,"model":"qwen4-max","choices":[{"index":0,"delta":{"tool_calls":[{"function":{"name":"echo_marker","arguments":""},"index":0,"id":"call_synthetic_echo_1","type":"function"}]},"finish_reason":"null"}],"usage":null}
+
+data: {"id":"chatcmpl-synthetic-tools","object":"ModelRequestProxy","created":1700000000,"model":"qwen4-max","choices":[{"index":0,"delta":{"tool_calls":[{"function":{"arguments":"{\"value\": "},"index":0,"type":"function"}]},"finish_reason":"null"}],"usage":null}
+
+data: {"id":"chatcmpl-synthetic-tools","object":"ModelRequestProxy","created":1700000000,"model":"qwen4-max","choices":[{"index":0,"delta":{"tool_calls":[{"function":{"arguments":"\"SYNTHETIC_TOOL_OK"},"index":0,"type":"function"}]},"finish_reason":"null"}],"usage":null}
+
+data: {"id":"chatcmpl-synthetic-tools","object":"ModelRequestProxy","created":1700000000,"model":"qwen4-max","choices":[{"index":0,"delta":{"tool_calls":[{"function":{"arguments":"\"}"},"index":0,"type":"function"}]},"finish_reason":"null"}],"usage":null}
+
+data: {"id":"chatcmpl-synthetic-tools","object":"ModelRequestProxy","created":1700000000,"model":"qwen4-max","choices":[{"index":0,"delta":{"tool_calls":[{"function":{"arguments":""},"index":0,"type":"function"}]},"finish_reason":"null"}],"usage":null}
+
+data: {"id":"chatcmpl-synthetic-tools","object":"ModelRequestProxy","created":1700000000,"model":"qwen4-max","choices":[{"index":0,"delta":{},"finish_reason":"tool_calls"}],"usage":{"prompt_tokens":20,"completion_tokens":10,"total_tokens":30}}
+
+data:[DONE]
+

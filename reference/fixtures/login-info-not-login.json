@@ -1,0 +1,7 @@
+{
+  "success": false,
+  "failed": true,
+  "httpCode": 401,
+  "errorCode": "NOT_LOGIN",
+  "errorMsg": "synthetic not logged in"
+}

@@ -1,0 +1,23 @@
+{
+  "data": {
+    "unifyRelate": [
+      {
+        "businessScene": "qwen_chat",
+        "eo-clt-dvidn": "synthetic-device",
+        "eo-clt-actkn": "synthetic-access-token",
+        "eo-clt-snver": "synthetic-version",
+        "eo-clt-bacsft": [
+          "synthetic-security-token-0",
+          "synthetic-security-token-1"
+        ]
+      },
+      {
+        "businessScene": "qwen_web_capsule",
+        "eo-clt-dvidn": "synthetic-device",
+        "eo-clt-actkn": "synthetic-access-token",
+        "eo-clt-snver": "synthetic-version",
+        "eo-clt-bacsft": []
+      }
+    ]
+  }
+}

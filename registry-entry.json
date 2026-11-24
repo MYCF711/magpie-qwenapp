@@ -1,0 +1,9 @@
+{
+  "package": "magpie-qwenapp",
+  "name": "千问 QwenApp",
+  "providers": ["qwenapp"],
+  "summary": {
+    "en": "Import a local QianwenApp login and use live Qwen models through signed, incremental chat responses.",
+    "zh": "本地导入千问客户端登录态，使用动态模型目录与签名真流式聊天。"
+  }
+}

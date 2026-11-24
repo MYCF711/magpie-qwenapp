@@ -1,0 +1,16 @@
+node_modules/
+dist/
+artifacts/
+.private/
+.tmp*/
+*.tgz
+*.log
+.env
+.env.*
+!.env.example
+recon/asar/extracted/
+reference/live-upstream-*.sse
+reference/qianwen2api-live/
+.DS_Store
+__pycache__/
+*.py[cod]

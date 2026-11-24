@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "piAi": {
+    "version": "0.70.6",
+    "providerSha256": "cc4ee3078eeb18be1867f80384ed5abb3c96a407b308cebe7c2c516cac57852d",
+    "patchSha256": "d36540475fef4928b99a21602a638022e7d147be0a29b7379cc11bb104a1665b"
+  },
+  "lockSha256": "aab08e4e2b34719bdfca34d475d2a0a3fa5c76d274cb7a900ab0957e65cd9a8b",
+  "bundleSha256": "b4101560756b39c873186c065cabebbbd977ac42525d90c70fe90e8827639434"
+}

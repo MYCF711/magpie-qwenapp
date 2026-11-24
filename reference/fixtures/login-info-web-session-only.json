@@ -1,0 +1,8 @@
+{
+  "success": true,
+  "failed": false,
+  "httpCode": 200,
+  "fixtureMode": "synthetic-web-session-only",
+  "nativeCredentialSuccessProven": false,
+  "data": {}
+}

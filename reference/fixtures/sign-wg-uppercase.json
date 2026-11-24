@@ -1,0 +1,11 @@
+{
+  "description": "Synthetic non-user X-U-SIGN-WG vector; official static WSG record, uppercase MD5 hex",
+  "input": {
+    "serviceTicket": "synthetic-ticket",
+    "uId": "1000000000000000001",
+    "nickname": "synthetic-nickname",
+    "vcode": "1700000000123"
+  },
+  "plaintext": "3AC069A43A358C76D931FBA857FBC49F",
+  "signWg": "O/eJbRi1u3nyic4ppU+4fSFv4cSKDb7CysQ9VPr5xB1nD4eMEx7za3JqTmq7OP8okwc="
+}
