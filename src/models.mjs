@@ -10,8 +10,14 @@ export function modelEntry(row, { live = false } = {}) {
   if (!id) return null
   const name = String(row?.name || row?.displayModelName || id).trim() || id
   const image = false
+  // 上游 reasoningEffortList 是对象数组 [{value,label,isDefault}]，直接 String() 会得到
+  // "[object Object]" 并被宿主当成档位名显示。这里取 value（真正发给上游的档位值），
+  // 兼容纯字符串数组，并去掉空值与重复项。
   const efforts = Array.isArray(row?.reasoningEffortList)
-    ? row.reasoningEffortList.map(String).filter(Boolean)
+    ? [...new Set(row.reasoningEffortList
+      .map((item) => (typeof item === "string" ? item : String(item?.value ?? item?.id ?? "")))
+      .map((value) => value.trim())
+      .filter(Boolean))]
     : []
   const context = finitePositive(row?.context_window ?? row?.contextWindow)
   const output = finitePositive(row?.max_tokens ?? row?.maxTokens)
